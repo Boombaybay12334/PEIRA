@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+import { dateTimeValue, formatDate } from "../lib/dates";
+import { readingTime } from "../lib/reading-time";
+
+type Essay = CollectionEntry<"essays">;
+
+interface Props {
+  essay: Essay;
+  featured?: boolean;
+}
+
+const { essay, featured = false } = Astro.props;
+const { data } = essay;
+---
+
+<article class:list={["essay-card", featured && "essay-card--featured"]}>
+  <p class="essay-card__date">
+    <time datetime={dateTimeValue(data.publishDate)}>{formatDate(data.publishDate)}</time>
+  </p>
+  <h2><a href={`/essays/${data.slug}`}>{data.title}</a></h2>
+  <p>{data.description}</p>
+  <div class="essay-card__footer">
+    <ul class="tag-list" aria-label={`${data.title} topics`}>
+      {data.topics.map((topic) => <li><a href={`/topics/${topic}`}>{topic}</a></li>)}
+    </ul>
+    <span>{readingTime(essay.body ?? "")} min read</span>
+  </div>
+</article>
