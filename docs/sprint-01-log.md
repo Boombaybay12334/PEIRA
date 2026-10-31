@@ -39,3 +39,27 @@
 - **Evidence:** `pnpm test` passed with 2 files and 11 tests; `pnpm check` passed with 0 errors, 0 warnings, and 0 hints; `pnpm build` passed with the sample draft collection entry; copying the missing-sources fixture into `src/content/essays/` made `pnpm build` fail with `sources: sources: provide at least 1 item(s)`, then the temporary entry was removed.
 - **Assumptions:** `lens` is a required array whose values are `ml`, `ai`, or `security`, as proposed by the content-schema skill and architecture notes.
 - **Deviations:** None.
+
+## P-006 — Base layout and routing skeleton
+
+- **Status:** Complete; merged through [PR #8](https://github.com/Boombaybay12334/PEIRA/pull/8) after CI and the Pages deployment passed.
+- **Requirement:** NFR-01.
+- **Evidence:** `pnpm lint`, `pnpm check`, and `pnpm build` passed; the build generated `/`, `/archive/`, `/lab/`, `/about/`, and seeded topic routes. The layout includes semantic navigation, visible focus states, a skip link, and a responsive narrow-screen breakpoint. The web-design-guidelines review found no issues.
+- **Assumptions:** This ticket wires `getPublishedEssays` into route data but intentionally renders no essay list; content rendering belongs to later tickets. Topic paths are seeded from the schema's three topic values.
+- **Deviations:** The owner selected data-wiring-only behavior for the otherwise empty route pages. Real-device visual and browser-console checks remain owner checks.
+
+## P-007 — Dockerfile
+
+- **Status:** Complete; merged through [PR #9](https://github.com/Boombaybay12334/PEIRA/pull/9) after CI and the Pages deployment passed.
+- **Requirement:** NFR-07.
+- **Evidence:** `docker build -t peira:p007 .` passed; `docker run --rm -d --name peira-p007 -p 8080:80 peira:p007` served `/` and `/archive/` with `HTTP/1.1 200 OK`, then the container was stopped cleanly.
+- **Assumptions:** nginx is the static runtime, matching the Astro static output and Cloudflare Pages deployment model. Docker remains a local verification step and is not added as a CI prerequisite.
+- **Deviations:** None.
+
+## P-008 — Essay 001 research file
+
+- **Status:** Complete; merged through [PR #10](https://github.com/Boombaybay12334/PEIRA/pull/10) after CI and the Pages deployment passed.
+- **Requirements:** DR-02, X2.
+- **Evidence:** `docs/essay-001/research.md` contains 11 fetched source records; the validation script printed `Source count: 11`, `Figures validation: PASS`, and `Single-source figures: 9 of 14`. `docs/essay-001/figures.csv` contains 14 candidate rows with non-empty source IDs and low/high ranges.
+- **Assumptions:** All research rows are candidates for the author to verify. A single value is represented with `low = high` and marked `single-source` when only one fetched source supports it.
+- **Deviations:** The direct Britannica page returned HTTP 403 and is not cited as read; the fetched USF map page that credits the 1911 Britannica volume is included instead, and the gap is documented in the research file.
