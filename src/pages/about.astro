@@ -1,0 +1,10 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { getPublishedEssays } from "../content/queries";
+
+const publishedEssays = await getPublishedEssays();
+---
+
+<SiteLayout title="About — PEIRA" publishedEssayCount={publishedEssays.length}>
+  <h1 class="sr-only">About</h1>
+</SiteLayout>

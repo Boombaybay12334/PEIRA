@@ -1,0 +1,18 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { getPublishedEssays } from "../../content/queries";
+
+const publishedEssays = await getPublishedEssays();
+
+export function getStaticPaths() {
+  return [
+    { params: { topic: "wars" } },
+    { params: { topic: "artifacts" } },
+    { params: { topic: "paleo-bio" } },
+  ];
+}
+---
+
+<SiteLayout title="Topic — PEIRA" publishedEssayCount={publishedEssays.length}>
+  <h1 class="sr-only">Topic</h1>
+</SiteLayout>

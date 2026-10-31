@@ -35,6 +35,7 @@ body {
 }
 
 body {
+  margin: 0;
   line-height: 1.55;
 }
 
@@ -53,9 +54,112 @@ a {
   color: var(--accent);
 }
 
+a:hover {
+  color: var(--accent-hover);
+}
+
 :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 10;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--accent);
+  color: var(--accent-contrast);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.site-shell {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.site-main {
+  flex: 1;
+}
+
+.site-container {
+  width: min(100% - (2 * var(--space-5)), 78rem);
+  margin-inline: auto;
+}
+
+.site-header {
+  border-bottom: 1px solid var(--border);
+  background-color: var(--bg-0);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-5);
+  padding-block: var(--space-5);
+}
+
+.site-mark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.site-mark__name {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  letter-spacing: 0.06em;
+}
+
+.site-mark__descriptor,
+.site-footer__meta {
+  color: var(--text-muted);
+  font-family: var(--font-data);
+  font-size: var(--text-xs);
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav a {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: var(--text-primary);
+}
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.site-footer__inner {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-5);
+  padding-block: var(--space-5);
+}
+
+.site-footer p {
+  margin: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -66,5 +170,19 @@ a {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+@media (max-width: 42rem) {
+  .site-header__inner,
+  .site-footer__inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .site-mark {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0;
   }
 }

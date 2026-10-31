@@ -1,0 +1,28 @@
+---
+const navigation = [
+  { label: "Essays", href: "/" },
+  { label: "Archive", href: "/archive" },
+  { label: "Lab", href: "/lab" },
+  { label: "About", href: "/about" },
+];
+---
+
+<header class="site-header">
+  <div class="site-container site-header__inner">
+    <a class="site-mark" href="/" aria-label="PEIRA home">
+      <span class="site-mark__name" translate="no">
+        PEIRA
+      </span>
+      <span class="site-mark__descriptor">research / writing</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <ul class="site-nav">
+        {navigation.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>

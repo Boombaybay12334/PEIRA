@@ -1,0 +1,18 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { getPublishedEssays } from "../../content/queries";
+
+const publishedEssays = await getPublishedEssays();
+
+export async function getStaticPaths() {
+  const essays = await getPublishedEssays();
+
+  return essays.map((essay) => ({
+    params: { slug: essay.data.slug },
+  }));
+}
+---
+
+<SiteLayout title="Essay — PEIRA" publishedEssayCount={publishedEssays.length}>
+  <h1 class="sr-only">Essay</h1>
+</SiteLayout>
