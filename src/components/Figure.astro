@@ -1,0 +1,50 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+import { assertFigureProps } from "../lib/figure";
+
+interface Props {
+  src: string | ImageMetadata;
+  alt: string;
+  caption: string;
+  credit: string;
+  license: string;
+  licenseUrl?: string;
+  sourceUrl?: string;
+  page?: string;
+  loading?: "eager" | "lazy";
+}
+
+const {
+  src,
+  alt,
+  caption,
+  credit,
+  license,
+  licenseUrl,
+  sourceUrl,
+  page = Astro.url.pathname,
+  loading = "lazy",
+} = Astro.props;
+
+assertFigureProps({ page, src, alt, caption, credit, license });
+---
+
+<figure class="essay-figure">
+  <Image
+    src={typeof src === "string" ? src : src.src}
+    alt={alt}
+    width={1200}
+    height={675}
+    loading={loading}
+  />
+  <figcaption>
+    <span>{caption}</span>
+    <span>
+      Credit: {credit} · License:
+      {licenseUrl ? <a href={licenseUrl}>{license}</a> : license}
+      {sourceUrl && <> · <a href={sourceUrl}>Source</a></>}
+    </span>
+  </figcaption>
+</figure>
