@@ -1,0 +1,83 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+import { dateTimeValue, formatDate } from "../lib/dates";
+
+type Essay = CollectionEntry<"essays">;
+
+interface Props {
+  essay: Essay;
+  readingMinutes: number;
+}
+
+const { essay, readingMinutes } = Astro.props;
+const { data } = essay;
+---
+
+<article class="essay-page site-container">
+  <header class="essay-header">
+    <p class="essay-header__eyebrow">Essay</p>
+    <h1>{data.title}</h1>
+    <p class="essay-header__description">{data.description}</p>
+    <dl class="essay-meta">
+      <div>
+        <dt>Published</dt>
+        <dd>
+          <time datetime={dateTimeValue(data.publishDate)}>{formatDate(data.publishDate)}</time>
+        </dd>
+      </div>
+      {
+        data.updatedDate && (
+          <div>
+            <dt>Updated</dt>
+            <dd>
+              <time datetime={dateTimeValue(data.updatedDate)}>{formatDate(data.updatedDate)}</time>
+            </dd>
+          </div>
+        )
+      }
+      <div>
+        <dt>Reading time</dt>
+        <dd>{readingMinutes} min</dd>
+      </div>
+      <div>
+        <dt>Lens</dt>
+        <dd>{data.lens.join(", ")}</dd>
+      </div>
+    </dl>
+    <ul class="tag-list" aria-label="Topics">
+      {data.topics.map((topic) => <li><a href={`/topics/${topic}`}>{topic}</a></li>)}
+    </ul>
+  </header>
+
+  <div class="essay-hero">
+    <slot name="hero" />
+  </div>
+
+  <div class="essay-prose">
+    <slot />
+  </div>
+
+  <!-- P-014: Lab panel slot, placed after the essay body. -->
+  <slot name="lab" />
+
+  <section class="essay-sources" aria-labelledby="sources-heading">
+    <h2 id="sources-heading">Sources</h2>
+    <ol>
+      {
+        data.sources.map((source) => (
+          <li>
+            <strong>{source.title}</strong>
+            {source.author && <> — {source.author}</>}
+            {source.year && <> ({source.year})</>}
+            <span class="essay-source-kind">[{source.kind}]</span>
+            {source.url && <> <a href={source.url}>{source.url}</a></>}
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <!-- P-015: Corrections section slot, placed after Sources. -->
+  <slot name="corrections" />
+</article>

@@ -38,6 +38,7 @@ assertFigureProps({ page, src, alt, caption, credit, license });
     width={1200}
     height={675}
     loading={loading}
+    fetchpriority={loading === "eager" ? "high" : undefined}
   />
   <figcaption>
     <span>{caption}</span>

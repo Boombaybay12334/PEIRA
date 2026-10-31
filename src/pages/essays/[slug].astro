@@ -1,6 +1,11 @@
 ---
-import SiteLayout from "../../layouts/SiteLayout.astro";
+import { render, type CollectionEntry } from "astro:content";
+
+import Figure from "../../components/Figure.astro";
 import { getPublishedEssays } from "../../content/queries";
+import EssayLayout from "../../layouts/EssayLayout.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { readingTime } from "../../lib/reading-time";
 
 const publishedEssays = await getPublishedEssays();
 
@@ -9,10 +14,39 @@ export async function getStaticPaths() {
 
   return essays.map((essay) => ({
     params: { slug: essay.data.slug },
+    props: { essay },
   }));
 }
+
+interface Props {
+  essay: CollectionEntry<"essays">;
+}
+
+const { essay } = Astro.props;
+const { Content } = await render(essay);
 ---
 
-<SiteLayout title="Essay — PEIRA" publishedEssayCount={publishedEssays.length}>
-  <h1 class="sr-only">Essay</h1>
+<SiteLayout
+  title={`${essay.data.title} — PEIRA`}
+  description={essay.data.description}
+  publishedEssayCount={publishedEssays.length}
+>
+  <EssayLayout essay={essay} readingMinutes={readingTime(essay.body ?? "")}>
+    <Fragment slot="hero">
+      <Figure
+        src={essay.data.heroImage.src}
+        alt={essay.data.heroImage.alt}
+        caption={essay.data.heroImage.caption}
+        credit={essay.data.heroImage.credit}
+        license={essay.data.heroImage.license}
+        loading="eager"
+        page={`/essays/${essay.data.slug}`}
+      />
+    </Fragment>
+    <Content />
+    <!-- P-014: render LabPanel here once that ticket is implemented. -->
+    <Fragment slot="lab"></Fragment>
+    <!-- P-015: render Corrections here once that ticket is implemented. -->
+    <Fragment slot="corrections"></Fragment>
+  </EssayLayout>
 </SiteLayout>
