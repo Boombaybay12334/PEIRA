@@ -10,7 +10,7 @@
     "src": "/favicon.svg",
     "alt": "A deliberately broken figure",
     "caption": "This fixture must fail.",
-    "credit": "",
+    "credit": "Fixture artwork",
     "license": "CC0 1.0"
   },
   "sources": [{ "title": "Fixture source", "kind": "web" }],
@@ -25,6 +25,17 @@
 }
 ---
 
+import Figure from "../../components/Figure.astro";
+
 # Broken Figure fixture
 
 This fixture is expected to fail when rendered.
+
+<Figure
+  src="/favicon.svg"
+  alt="A deliberately broken inline figure"
+  caption="This inline figure must fail."
+  credit=""
+  license="CC0 1.0"
+  page="figure-missing-credit"
+/>
