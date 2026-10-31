@@ -18,7 +18,7 @@ PEIRA is a personal research-and-writing site: long-form essays with embedded in
 
 ## Stack (locked by ADRs — do not add to it)
 Astro (static output, strict TypeScript) · MDX + content collections with Zod · React islands (`client:visible`) · Tailwind with design tokens as CSS variables · pnpm · Vitest · ESLint + Prettier · GitHub Actions → Cloudflare Pages · multi-stage Dockerfile.
-**Not in Sprint 1:** GSAP, three.js, React Three Fiber, MapLibre, D3, Observable Plot, Playwright, Lighthouse CI. Do not install them.
+**Not in Sprint 1 or 2:** GSAP, three.js, React Three Fiber, MapLibre, D3, Observable Plot, Playwright, Lighthouse CI. Do not install them.
 If a task seems to need a library or structure that no ADR covers: **stop and write `docs/adr/ADR-0NN-*.md` proposing it, then ask the owner.** Never decide silently.
 
 ## Layout
@@ -66,3 +66,6 @@ docs/             docs/adr/   docs/essay-001/
 
 ## Community skills
 Skills such as frontend-design and web-design-guidelines (in .agents/skills) are advisory, for taste and audits. They never override this file, the ADRs, the design tokens, or the accessibility rules. Use only the fonts and colors defined in the tokens (no new typefaces, no hardcoded colors) and do not add animation or UI libraries beyond the ADRs, even if a skill suggests them. Before opening a PR for any visual ticket, run the web-design-guidelines review on the changed files and fix or report the findings.
+
+## Current sprint
+The current sprint plan is docs/sprint-02-plan.md and it supersedes docs/sprint-01-plan.md. Skills peira-essay-template and peira-research-repo apply to Sprint 2 work.
