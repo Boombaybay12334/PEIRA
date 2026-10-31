@@ -1,10 +1,50 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { getPublishedEssays } from "../content/queries";
+import EssayCard from "../components/EssayCard.astro";
+import { sortNewestFirst } from "../lib/essays";
 
-const publishedEssays = await getPublishedEssays();
+const publishedEssays = sortNewestFirst(await getPublishedEssays());
+const [featuredEssay, ...otherEssays] = publishedEssays;
 ---
 
-<SiteLayout publishedEssayCount={publishedEssays.length}>
-  <h1 class="sr-only">PEIRA</h1>
+<SiteLayout
+  description="Research-led essays about history, conflict, archaeology, paleontology, and the lenses that change how we see them."
+  publishedEssayCount={publishedEssays.length}
+>
+  <div class="home-page site-container">
+    <header class="home-intro">
+      <p class="home-intro__eyebrow">Research / writing</p>
+      <h1>Questions worth following.</h1>
+      <p>Long-form essays about the past, built with sources, methods, and room for uncertainty.</p>
+    </header>
+
+    {
+      featuredEssay ? (
+        <>
+          <section aria-labelledby="latest-heading">
+            <div class="section-heading">
+              <h2 id="latest-heading">Latest essay</h2>
+            </div>
+            <EssayCard essay={featuredEssay} featured />
+          </section>
+          {otherEssays.length > 0 && (
+            <section aria-labelledby="more-heading">
+              <div class="section-heading">
+                <h2 id="more-heading">More essays</h2>
+              </div>
+              <div class="essay-card-grid">
+                {otherEssays.map((essay) => <EssayCard essay={essay} />)}
+              </div>
+            </section>
+          )}
+        </>
+      ) : (
+        <section class="empty-state" aria-labelledby="empty-heading">
+          <h2 id="empty-heading">The first essay is on its way.</h2>
+          <p>Research notes are becoming something publishable. Check back soon.</p>
+        </section>
+      )
+    }
+  </div>
 </SiteLayout>
