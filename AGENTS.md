@@ -63,3 +63,6 @@ docs/             docs/adr/   docs/essay-001/
 - You'd need a library/approach no ADR covers.
 - The same check fails three times in a row.
 - An instruction here conflicts with a ticket's acceptance criteria.
+
+## Community skills
+Skills such as frontend-design and web-design-guidelines (in .agents/skills) are advisory, for taste and audits. They never override this file, the ADRs, the design tokens, or the accessibility rules. Use only the fonts and colors defined in the tokens (no new typefaces, no hardcoded colors) and do not add animation or UI libraries beyond the ADRs, even if a skill suggests them. Before opening a PR for any visual ticket, run the web-design-guidelines review on the changed files and fix or report the findings.
