@@ -1,20 +1,10 @@
 ---
-import "../styles/global.css";
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { getPublishedEssays } from "../content/queries";
+
+const publishedEssays = await getPublishedEssays();
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>PEIRA</title>
-  </head>
-  <body>
-    <main>
-      <h1>PEIRA</h1>
-      <p>Research-led essays with interactive tools.</p>
-    </main>
-  </body>
-</html>
+<SiteLayout publishedEssayCount={publishedEssays.length}>
+  <h1 class="sr-only">PEIRA</h1>
+</SiteLayout>
