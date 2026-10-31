@@ -34,7 +34,7 @@
 
 ## P-005 — Essay content schema
 
-- **Status:** Complete locally; PR and merge evidence will be added after the gated CI run.
+- **Status:** Complete; merged through [PR #6](https://github.com/Boombaybay12334/PEIRA/pull/6) after CI passed.
 - **Requirements:** FR-01, FR-04, FR-05, FR-06, FR-09, NFR-10.
 - **Evidence:** `pnpm test` passed with 2 files and 11 tests; `pnpm check` passed with 0 errors, 0 warnings, and 0 hints; `pnpm build` passed with the sample draft collection entry; copying the missing-sources fixture into `src/content/essays/` made `pnpm build` fail with `sources: sources: provide at least 1 item(s)`, then the temporary entry was removed.
 - **Assumptions:** `lens` is a required array whose values are `ml`, `ai`, or `security`, as proposed by the content-schema skill and architecture notes.
