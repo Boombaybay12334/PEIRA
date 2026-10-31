@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   ci:
-    name: Build
+    name: CI
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -30,6 +30,12 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Type check
+        run: pnpm check
 
       - name: Build
         run: pnpm build
