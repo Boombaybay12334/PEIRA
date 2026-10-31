@@ -1,0 +1,212 @@
+---
+import "../styles/global.css";
+
+const colorGroups = [
+  {
+    title: "Backgrounds",
+    tokens: ["bg-0", "bg-1", "bg-2"],
+  },
+  {
+    title: "Text",
+    tokens: ["text-primary", "text-secondary", "text-muted"],
+  },
+  {
+    title: "Accent and borders",
+    tokens: ["accent", "accent-hover", "accent-contrast", "border", "border-strong", "focus"],
+  },
+];
+const dataTokens = ["data-1", "data-2", "data-3", "data-4", "data-5", "data-6"];
+const typeSamples = [
+  ["Body", "var(--font-body)", "Research begins with a question."],
+  ["Headings", "var(--font-heading)", "An archive in motion"],
+  ["Data", "var(--font-data)", "1813 / 10:00 / 65ch"],
+];
+const spacingTokens = [
+  "space-1",
+  "space-2",
+  "space-3",
+  "space-4",
+  "space-5",
+  "space-6",
+  "space-7",
+  "space-8",
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex" />
+    <title>PEIRA design tokens</title>
+  </head>
+  <body>
+    <main>
+      <h1>Design tokens</h1>
+      <p>Placeholder values for PEIRA's archival, analytical, cinematic direction.</p>
+
+      {colorGroups.map((group) => (
+        <section aria-labelledby={`${group.title}-heading`}>
+          <h2 id={`${group.title}-heading`}>{group.title}</h2>
+          <div class="swatches">
+            {group.tokens.map((token) => (
+              <article class="swatch">
+                <div
+                  class="swatch-color"
+                  style={`background-color: var(--${token})`}
+                  aria-hidden="true"
+                />
+                <code>--{token}</code>
+                <span data-value={token}>Loading value…</span>
+                <span data-contrast={token}>Contrast vs --bg-0: calculating…</span>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <section aria-labelledby="data-heading">
+        <h2 id="data-heading">Data colors</h2>
+        <div class="swatches">
+          {dataTokens.map((token, index) => (
+            <article class="swatch">
+              <div
+                class={`swatch-color shape-${(index % 3) + 1}`}
+                style={`background-color: var(--${token})`}
+                aria-hidden="true"
+              />
+              <code>--{token}</code>
+              <span data-value={token}>Loading value…</span>
+              <span data-contrast={token}>Contrast vs --bg-0: calculating…</span>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="type-heading">
+        <h2 id="type-heading">Type scale</h2>
+        <div class="type-samples">
+          {typeSamples.map(([label, font, sample]) => (
+            <p style={`font-family: ${font}`}>
+              {label}: {sample}
+            </p>
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="spacing-heading">
+        <h2 id="spacing-heading">Spacing</h2>
+        <div class="spacing">
+          {spacingTokens.map((token) => (
+            <div class="spacing-item">
+              <code>--{token}</code>
+              <span style={`width: var(--${token})`} />
+            </div>
+          ))}
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-4);
+  }
+
+  section {
+    margin-block: var(--space-7);
+  }
+
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: var(--space-3);
+  }
+
+  .swatch {
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    border: 1px solid var(--border);
+    background: var(--bg-1);
+  }
+
+  .swatch-color {
+    min-height: 4rem;
+  }
+
+  .shape-2 {
+    border-radius: 50%;
+  }
+
+  .shape-3 {
+    transform: rotate(45deg) scale(0.7);
+  }
+
+  .swatch span {
+    color: var(--text-secondary);
+    font: var(--text-xs) var(--font-data);
+  }
+
+  code {
+    font-family: var(--font-data);
+  }
+
+  .type-samples p {
+    font-size: var(--text-lg);
+  }
+
+  .spacing {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .spacing-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .spacing-item span {
+    display: block;
+    height: var(--space-3);
+    background: var(--accent);
+    max-width: 100%;
+  }
+</style>
+
+<script>
+  const root = document.documentElement;
+  const styles = getComputedStyle(root);
+  const bg0 = styles.getPropertyValue("--bg-0").trim();
+
+  function channel(value: number) {
+    const normalized = value / 255;
+    return normalized <= 0.03928 ? normalized / 12.92 : ((normalized + 0.055) / 1.055) ** 2.4;
+  }
+
+  function rgb(color: string): [number, number, number] {
+    const values = color.match(/\d+(?:\.\d+)?/g)?.map(Number);
+    return [values?.[0] ?? 0, values?.[1] ?? 0, values?.[2] ?? 0];
+  }
+
+  function ratio(foreground: string, background: string) {
+    const luminance = ([red, green, blue]: [number, number, number]) =>
+      0.2126 * channel(red) + 0.7152 * channel(green) + 0.0722 * channel(blue);
+    const first = luminance(rgb(foreground));
+    const second = luminance(rgb(background));
+    return ((Math.max(first, second) + 0.05) / (Math.min(first, second) + 0.05)).toFixed(2);
+  }
+
+  document.querySelectorAll("[data-value]").forEach((element) => {
+    const token = element.getAttribute("data-value");
+    if (!token) return;
+    const value = styles.getPropertyValue(`--${token}`).trim();
+    element.textContent = value;
+    const contrast = document.querySelector(`[data-contrast="${token}"]`);
+    if (contrast) contrast.textContent = `Contrast vs --bg-0: ${ratio(value, bg0)}:1`;
+  });
+</script>

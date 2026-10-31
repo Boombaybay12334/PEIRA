@@ -1,0 +1,38 @@
+:root {
+  --bg-0: #151311;
+  --bg-1: #211d1a;
+  --bg-2: #2d2722;
+  --text-primary: #f2e8d5;
+  --text-secondary: #c9bda9;
+  --text-muted: #a79a87;
+  --accent: #e07a45;
+  --accent-hover: #f09a63;
+  --accent-contrast: #17110d;
+  --border: #51463c;
+  --border-strong: #776657;
+  --data-1: #e07a45;
+  --data-2: #7db7b0;
+  --data-3: #d7b85c;
+  --data-4: #9c8bd8;
+  --data-5: #d47c9a;
+  --data-6: #7da8d8;
+  --focus: #f09a63;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --text-xs: clamp(0.75rem, 0.72rem + 0.1vw, 0.8125rem);
+  --text-sm: clamp(0.875rem, 0.84rem + 0.12vw, 0.9375rem);
+  --text-base: clamp(1rem, 0.96rem + 0.18vw, 1.125rem);
+  --text-lg: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  --text-xl: clamp(1.75rem, 1.45rem + 1.2vw, 2.5rem);
+  --text-2xl: clamp(2.25rem, 1.7rem + 2.2vw, 3.75rem);
+  --measure: 65ch;
+  --font-body: "Newsreader Variable", Georgia, serif;
+  --font-heading: "Fraunces Variable", Georgia, serif;
+  --font-data: "JetBrains Mono Variable", ui-monospace, monospace;
+}

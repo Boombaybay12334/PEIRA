@@ -34,6 +34,9 @@ jobs:
       - name: Lint
         run: pnpm lint
 
+      - name: Check hardcoded colors
+        run: pnpm lint:colors
+
       - name: Type check
         run: pnpm check
 
