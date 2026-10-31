@@ -1,0 +1,11 @@
+.git
+.github
+.astro
+dist
+node_modules
+.env
+.env.*
+Dockerfile
+README.md
+docs
+tests
