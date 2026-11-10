@@ -1,10 +1,56 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import EssayCard from "../components/EssayCard.astro";
 import { getPublishedEssays } from "../content/queries";
+import { groupByYear, sortNewestFirst, type EssayTopic } from "../lib/essays";
 
-const publishedEssays = await getPublishedEssays();
+const publishedEssays = sortNewestFirst(await getPublishedEssays());
+const groupedEssays = groupByYear(publishedEssays);
+const topics: EssayTopic[] = ["wars", "artifacts", "paleo-bio"];
 ---
 
-<SiteLayout title="Archive — PEIRA" publishedEssayCount={publishedEssays.length}>
-  <h1 class="sr-only">Archive</h1>
+<SiteLayout
+  title="Archive — PEIRA"
+  description="Browse PEIRA's published essays by year and topic."
+  publishedEssayCount={publishedEssays.length}
+>
+  <div class="archive-page site-container">
+    <header class="page-intro">
+      <p class="page-intro__eyebrow">Index</p>
+      <h1>Archive</h1>
+      <p>Every published essay, grouped by year and connected to its topics.</p>
+    </header>
+
+    <nav class="topic-filter" aria-label="Filter essays by topic">
+      <span>Topics</span>
+      <ul class="tag-list">
+        {topics.map((topic) => (
+          <li>
+            <a href={`/topics/${topic}`}>{topic}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    {
+      groupedEssays.size > 0 ? (
+        [...groupedEssays].map(([year, essays]) => (
+          <section class="archive-year" aria-labelledby={`year-${year}`}>
+            <div class="section-heading">
+              <h2 id={`year-${year}`}>{year}</h2>
+              <span>{essays.length} {essays.length === 1 ? "essay" : "essays"}</span>
+            </div>
+            <div class="essay-card-grid">
+              {essays.map((essay) => <EssayCard essay={essay} />)}
+            </div>
+          </section>
+        ))
+      ) : (
+        <section class="empty-state" aria-labelledby="archive-empty-heading">
+          <h2 id="archive-empty-heading">The archive is empty.</h2>
+          <p>The first essay is on its way.</p>
+        </section>
+      )
+    }
+  </div>
 </SiteLayout>
