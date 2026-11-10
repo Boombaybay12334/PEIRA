@@ -1,0 +1,10 @@
+{
+  "kind": "points",
+  "schemaVersion": 1,
+  "points": [
+    {
+      "id": "broken",
+      "time": "not-a-date"
+    }
+  ]
+}
