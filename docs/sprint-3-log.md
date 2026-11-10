@@ -1,8 +1,0 @@
-
-## Run E — P-019, P-021
-
-- **Status:** Complete; merged through [PR #26](https://github.com/Boombaybay12334/PEIRA/pull/26) and [PR #27](https://github.com/Boombaybay12334/PEIRA/pull/27) after CI and the Pages deployments passed.
-- **Tickets:** P-019 scenario layers; P-021 Lab sandbox page.
-- **Evidence:** `pnpm lint`, `pnpm lint:colors`, `pnpm check`, `pnpm test` (6 files, 30 tests), `pnpm build`, and targeted Prettier checks passed. The built `/lab` output contains the synthetic-data notice, the module-data-format link, the map section, and hydrated historical/alternative scenario data. Scenario changes use native radios, update filtered points and assumptions/limitations, announce through `aria-live="polite"`, and show "Exploration, not a prediction" for alternatives.
-- **Assumptions:** Run E has one built module, so the Lab contains one module section; optional Run K/L modules remain out of scope. The historical baseline is now required whenever a points dataset declares scenarios.
-- **Deviations:** A repository-wide `pnpm exec prettier --check .` still reports pre-existing formatting issues in unrelated files; all changed files pass targeted Prettier checks. Real-phone rendering, tile availability, and browser-console output remain owner checks.
