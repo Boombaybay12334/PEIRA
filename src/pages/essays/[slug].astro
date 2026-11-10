@@ -2,6 +2,7 @@
 import { render, type CollectionEntry } from "astro:content";
 
 import Figure from "../../components/Figure.astro";
+import LabPanel from "../../components/LabPanel.astro";
 import { getPublishedEssays } from "../../content/queries";
 import EssayLayout from "../../layouts/EssayLayout.astro";
 import SiteLayout from "../../layouts/SiteLayout.astro";
@@ -44,8 +45,9 @@ const { Content } = await render(essay);
       />
     </Fragment>
     <Content />
-    <!-- P-014: render LabPanel here once that ticket is implemented. -->
-    <Fragment slot="lab"></Fragment>
+    <Fragment slot="lab">
+      <LabPanel repoUrl={essay.data.repoUrl} lab={essay.data.lab} />
+    </Fragment>
     <!-- P-015: render Corrections here once that ticket is implemented. -->
     <Fragment slot="corrections"></Fragment>
   </EssayLayout>
