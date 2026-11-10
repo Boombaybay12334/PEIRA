@@ -1,0 +1,59 @@
+---
+interface ReproducibilityItem {
+  item: string;
+  done: boolean;
+}
+
+interface Lab {
+  method: string;
+  limitations: string;
+  dataSources: string[];
+  reproducibility: ReproducibilityItem[];
+}
+
+interface Props {
+  repoUrl: string;
+  lab: Lab;
+}
+
+const { repoUrl, lab } = Astro.props;
+---
+
+<section class="lab-panel" aria-labelledby="lab-heading">
+  <details>
+    <summary id="lab-heading">
+      <span>Lab</span>
+      <span aria-hidden="true"> — </span>
+      <a href={repoUrl}>Open research repository</a>
+    </summary>
+    <div class="lab-panel__content">
+      <div>
+        <h2>Method</h2>
+        <p>{lab.method}</p>
+      </div>
+      <div>
+        <h2>Data sources</h2>
+        <ul>
+          {lab.dataSources.map((source) => <li>{source}</li>)}
+        </ul>
+      </div>
+      <div>
+        <h2>Limitations</h2>
+        <p>{lab.limitations}</p>
+      </div>
+      <div>
+        <h2>Reproducibility</h2>
+        <ul class="lab-checklist">
+          {
+            lab.reproducibility.map(({ item, done }) => (
+              <li>
+                <span class="lab-checklist__state">{done ? "Done ✓" : "Open ○"}</span>
+                <span>{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </details>
+</section>

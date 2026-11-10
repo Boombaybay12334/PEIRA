@@ -404,6 +404,67 @@ a:hover {
   border-top: 1px solid var(--border);
 }
 
+.lab-panel {
+  max-width: var(--measure);
+  margin-top: var(--space-8);
+  padding-block: var(--space-5);
+  border-block: 1px solid var(--border);
+}
+
+.lab-panel summary {
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+}
+
+.lab-panel summary a {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+}
+
+.lab-panel__content {
+  display: grid;
+  gap: var(--space-5);
+  padding-top: var(--space-5);
+}
+
+.lab-panel__content h2 {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-data);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.lab-panel__content p,
+.lab-panel__content ul {
+  margin: 0;
+}
+
+.lab-panel__content ul {
+  padding-left: var(--space-5);
+}
+
+.lab-panel__content li + li {
+  margin-top: var(--space-2);
+}
+
+.lab-checklist {
+  padding-left: 0 !important;
+  list-style: none;
+}
+
+.lab-checklist li {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.lab-checklist__state {
+  flex: 0 0 4.5rem;
+  color: var(--text-muted);
+  font-family: var(--font-data);
+  font-size: var(--text-xs);
+}
+
 .essay-sources h2 {
   margin-top: 0;
 }
