@@ -1,10 +1,9 @@
-# About page content (written by the owner)
 
-Fill every section in your own words. Run B will not start while any line still contains the marker FILL_ME.
+# About page content (written by the owner)
 
 ## Who I am
 
-FILL_ME: 2 to 4 sentences about you, as much or as little as you want public.
+I'm a computer science student driven by curiosity about the world, its history, and the ideas that have shaped humanity. My interests span history, wars, archaeology, paleontology, science, and technology. With a background in machine learning and AI, I enjoy exploring how modern tools can offer new perspectives on old questions. I'm here to learn, investigate, connect ideas, and document the things I find fascinating.
 
 ## What PEIRA is
 
@@ -14,4 +13,5 @@ It is a place where I think in public, write in my own way, and build things aro
 
 ## Contact
 
-FILL_ME: the links or email you are happy to make public, one per line.
+GitHub: [YOUR GITHUB URL]
+Email: [YOUR PUBLIC EMAIL]
