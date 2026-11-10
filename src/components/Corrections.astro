@@ -1,0 +1,31 @@
+---
+import { dateTimeValue, formatDate } from "../lib/dates";
+
+interface Correction {
+  date: Date;
+  note: string;
+}
+
+interface Props {
+  corrections?: Correction[];
+}
+
+const { corrections = [] } = Astro.props;
+const newestFirst = [...corrections].sort((left, right) => right.date.getTime() - left.date.getTime());
+---
+
+{
+  newestFirst.length > 0 && (
+    <section class="essay-corrections" aria-labelledby="corrections-heading">
+      <h2 id="corrections-heading">Corrections and updates</h2>
+      <ol>
+        {newestFirst.map((correction) => (
+          <li>
+            <time datetime={dateTimeValue(correction.date)}>{formatDate(correction.date)}</time>
+            <p>{correction.note}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )
+}
