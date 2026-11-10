@@ -1,6 +1,6 @@
 # ADR-013: V1 module libraries
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-11-10
 
 ## Context
