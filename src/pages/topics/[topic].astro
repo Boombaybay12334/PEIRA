@@ -1,18 +1,43 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
+import EssayCard from "../../components/EssayCard.astro";
 import { getPublishedEssays } from "../../content/queries";
+import { filterByTopic, sortNewestFirst, type EssayTopic } from "../../lib/essays";
 
 const publishedEssays = await getPublishedEssays();
 
 export function getStaticPaths() {
-  return [
-    { params: { topic: "wars" } },
-    { params: { topic: "artifacts" } },
-    { params: { topic: "paleo-bio" } },
-  ];
+  const topics: EssayTopic[] = ["wars", "artifacts", "paleo-bio"];
+  return topics.map((topic) => ({ params: { topic } }));
 }
+
+const topic = Astro.params.topic as EssayTopic;
+const topicEssays = sortNewestFirst(filterByTopic(publishedEssays, topic));
 ---
 
-<SiteLayout title="Topic — PEIRA" publishedEssayCount={publishedEssays.length}>
-  <h1 class="sr-only">Topic</h1>
+<SiteLayout
+  title={`${topic} essays — PEIRA`}
+  description={`Published PEIRA essays about ${topic}.`}
+  publishedEssayCount={publishedEssays.length}
+>
+  <div class="topic-page site-container">
+    <header class="page-intro">
+      <p class="page-intro__eyebrow">Topic</p>
+      <h1>{topic}</h1>
+      <p><a href="/archive">Back to the archive</a></p>
+    </header>
+
+    {
+      topicEssays.length > 0 ? (
+        <div class="essay-card-grid">
+          {topicEssays.map((essay) => <EssayCard essay={essay} />)}
+        </div>
+      ) : (
+        <section class="empty-state" aria-labelledby="topic-empty-heading">
+          <h2 id="topic-empty-heading">No essays here yet.</h2>
+          <p>Research for this topic is still taking shape.</p>
+        </section>
+      )
+    }
+  </div>
 </SiteLayout>
