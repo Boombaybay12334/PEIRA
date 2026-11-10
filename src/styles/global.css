@@ -480,6 +480,36 @@ a:hover {
   font-size: var(--text-xs);
 }
 
+.essay-corrections {
+  max-width: var(--measure);
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border);
+}
+
+.essay-corrections h2 {
+  margin-top: 0;
+}
+
+.essay-corrections ol {
+  margin: 0;
+  padding-left: var(--space-5);
+}
+
+.essay-corrections li + li {
+  margin-top: var(--space-5);
+}
+
+.essay-corrections time {
+  color: var(--text-muted);
+  font-family: var(--font-data);
+  font-size: var(--text-xs);
+}
+
+.essay-corrections p {
+  margin: var(--space-2) 0 0;
+}
+
 .site-container {
   width: min(100% - (2 * var(--space-5)), 78rem);
   margin-inline: auto;
