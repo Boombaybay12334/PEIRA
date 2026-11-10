@@ -1,10 +1,51 @@
 ---
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
+
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { getPublishedEssays } from "../content/queries";
 
 const publishedEssays = await getPublishedEssays();
+const aboutMarkdown = await readFile(resolve(process.cwd(), "docs/about-content.md"), "utf-8");
+const sections = aboutMarkdown
+  .trim()
+  .split(/\n(?=## )/)
+  .map((section) => {
+    const [heading, ...paragraphLines] = section.split("\n");
+    return {
+      heading: heading.replace(/^## /, ""),
+      paragraphs: paragraphLines.join("\n").trim().split(/\n\n+/),
+    };
+  });
 ---
 
-<SiteLayout title="About — PEIRA" publishedEssayCount={publishedEssays.length}>
-  <h1 class="sr-only">About</h1>
+<SiteLayout
+  title="About — PEIRA"
+  description="Who I am, what PEIRA is, and how to get in touch."
+  publishedEssayCount={publishedEssays.length}
+>
+  <div class="about-page site-container">
+    <header class="page-intro">
+      <p class="page-intro__eyebrow">About</p>
+      <h1>About PEIRA</h1>
+    </header>
+    {
+      sections.map(({ heading, paragraphs }) => (
+        <section class="about-section" aria-labelledby={`about-${heading.toLowerCase().replaceAll(" ", "-")}`}>
+          <h2 id={`about-${heading.toLowerCase().replaceAll(" ", "-")}`}>{heading}</h2>
+          {paragraphs.map((paragraph) => {
+            const contactMatch = paragraph.match(/^(GitHub|Email): (.+)$/);
+
+            return contactMatch ? (
+              <p>
+                {contactMatch[1]}: <a href={contactMatch[2]}>{contactMatch[2]}</a>
+              </p>
+            ) : (
+              <p>{paragraph}</p>
+            );
+          })}
+        </section>
+      ))
+    }
+  </div>
 </SiteLayout>

@@ -13,5 +13,5 @@ It is a place where I think in public, write in my own way, and build things aro
 
 ## Contact
 
-GitHub: [YOUR GITHUB URL]
-Email: [YOUR PUBLIC EMAIL]
+GitHub: https://github.com/Boombaybay12334
+Email: abhinavkrsingh3016@gmail.com
