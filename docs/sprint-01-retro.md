@@ -2,11 +2,11 @@
 
 Fill the lines marked FILL_ME. Three lines each, plain words.
 
-**Actual hours:** build FILL_ME · write FILL_ME (planned: 7 build, 3 write)
+**Actual hours:** build 3 to 4 hours  (planned: 7 build, 3 write)
 
-**What worked:** FILL_ME
-**What hurt:** FILL_ME
-**What to change:** FILL_ME
+**What worked:** Basic implementation for all the tickets, missing rn is better ui design
+**What hurt:** the ui design is not upto the mark, mainly because i lazed of this stage for that i w focus on it later and improvise
+**What to change:** Mainly UI and i need to write that lepzig research in deets and test out
 
 ## Facts from the record
 - All eight tickets P-001 to P-008 merged via PRs #1, #2, #4 to #11 (#3 was a deliberate failing-CI test, closed).
