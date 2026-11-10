@@ -69,3 +69,12 @@ Skills such as frontend-design and web-design-guidelines (in .agents/skills) are
 
 ## Current sprint
 The current sprint plan is docs/sprint-02-plan.md and it supersedes docs/sprint-01-plan.md. Skills peira-essay-template and peira-research-repo apply to Sprint 2 work.
+
+## Library allowances (these override the "Not in Sprint 1 or 2" line)
+- Sprint 3 core runs: maplibre-gl only. Map tiles: the OpenFreeMap public style, attribution always visible, style URL in one config constant.
+- Run K only: modular d3 packages (d3-force, d3-scale, d3-selection, d3-zoom). Run L only: @google/model-viewer.
+- Sprint 4 runs: @astrojs/sitemap, @astrojs/rss, @playwright/test, @axe-core/playwright, @lhci/cli.
+- Never in V1: GSAP, three.js, React Three Fiber, deck.gl, Leaflet, any UI component library.
+
+## Current sprint
+Current sprint plan: docs/sprint-03-plan.md until Sprint 3 is done, then docs/sprint-04-plan.md. Skills peira-modules, peira-essay-scaffold and peira-seo-qa-release apply.
