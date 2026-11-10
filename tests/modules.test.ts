@@ -62,6 +62,35 @@ describe("module helpers", () => {
 });
 
 describe("points schema", () => {
+  it("requires a historical baseline when scenarios are provided", () => {
+    const result = pointsSchema.safeParse({
+      ...points,
+      scenarios: [
+        {
+          id: "alternative",
+          label: "Alternative",
+          kind: "alternative",
+          assumptions: ["Synthetic assumption"],
+          parameters: {},
+          limitations: ["Synthetic limitation"],
+          exploration: true,
+        },
+      ],
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues[0]?.message).toContain("historical scenario");
+    }
+  });
+
+  it("loads the Lab demo with historical and exploratory scenarios", () => {
+    const demo = loadPointsData("demo/demo-points.v1.json");
+    expect(demo.scenarios?.map((scenario) => scenario.id)).toEqual(["historical", "alternative"]);
+    expect(demo.scenarios?.find((scenario) => scenario.id === "alternative")?.exploration).toBe(
+      true,
+    );
+  });
+
   it("rejects a point whose strength range is reversed", () => {
     const result = pointsSchema.safeParse({
       ...points,

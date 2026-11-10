@@ -159,9 +159,12 @@ function MapTimelineView({ data }: Props) {
         </fieldset>
       )}
       {selectedScenario && (
-        <div className="map-timeline__scenario-copy" aria-live="polite">
+        <div className="map-timeline__scenario-copy" aria-live="polite" aria-atomic="true">
           {selectedScenario.exploration && <strong>Exploration, not a prediction</strong>}
-          <p>{selectedScenario.summary ?? selectedScenario.assumptions.join(" ")}</p>
+          <p>
+            <strong>{selectedScenario.label}:</strong>{" "}
+            {selectedScenario.summary ?? selectedScenario.assumptions.join(" ")}
+          </p>
           <details>
             <summary>Assumptions and limitations</summary>
             <ul>

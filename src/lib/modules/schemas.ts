@@ -49,17 +49,27 @@ const scenarioSchema = z.object({
   summary: z.string().optional(),
 });
 
-export const pointsSchema = z.object({
-  kind: z.literal("points"),
-  schemaVersion: z.literal(1),
-  demo: z.boolean().default(false),
-  figures: z.array(z.record(z.string(), z.unknown())).default([]),
-  omitted: z.array(z.string()).default([]),
-  seed: z.union([z.string(), z.number()]).optional(),
-  inputs: z.record(z.string(), z.unknown()).default({}),
-  points: z.array(pointSchema).min(1, "points: provide at least one point"),
-  scenarios: z.array(scenarioSchema).optional(),
-});
+export const pointsSchema = z
+  .object({
+    kind: z.literal("points"),
+    schemaVersion: z.literal(1),
+    demo: z.boolean().default(false),
+    figures: z.array(z.record(z.string(), z.unknown())).default([]),
+    omitted: z.array(z.string()).default([]),
+    seed: z.union([z.string(), z.number()]).optional(),
+    inputs: z.record(z.string(), z.unknown()).default({}),
+    points: z.array(pointSchema).min(1, "points: provide at least one point"),
+    scenarios: z.array(scenarioSchema).optional(),
+  })
+  .superRefine((data, context) => {
+    if (data.scenarios && !data.scenarios.some((scenario) => scenario.id === "historical")) {
+      context.addIssue({
+        code: "custom",
+        path: ["scenarios"],
+        message: "scenarios: provide a historical scenario as the default baseline",
+      });
+    }
+  });
 
 export type PointsData = z.infer<typeof pointsSchema>;
 export type Point = PointsData["points"][number];
