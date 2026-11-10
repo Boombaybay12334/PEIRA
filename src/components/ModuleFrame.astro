@@ -1,0 +1,67 @@
+---
+import type { PointsData } from "../lib/modules/schemas";
+
+interface Props {
+  data: PointsData;
+  title: string;
+  caption?: string;
+  sourceLicense?: string;
+}
+
+const { data, title, caption, sourceLicense } = Astro.props;
+const hasCandidate = data.points.some((point) => point.status === "candidate");
+const badge = data.demo || hasCandidate ? "Demo data — not historical" : undefined;
+---
+
+<figure class="module-frame" aria-labelledby="module-title">
+  <div class="module-frame__header">
+    <h2 id="module-title">{title}</h2>
+    {badge && <span class="module-frame__badge">{badge}</span>}
+  </div>
+  {caption && <p class="module-frame__caption">{caption}</p>}
+  <slot />
+  <noscript>
+    <p class="module-frame__noscript">
+      JavaScript is required for the interactive view. Use the text and table version below.
+    </p>
+  </noscript>
+  <details class="module-frame__details">
+    <summary>Text and table version</summary>
+    <p>
+      {data.points.length} points across{" "}
+      {new Set(data.points.map((point) => point.time.toISOString().slice(0, 10))).size} dates.
+    </p>
+    <div class="module-frame__table-wrap">
+      <table>
+        <caption class="sr-only">{title}data</caption>
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Label</th>
+            <th scope="col">Place</th>
+            <th scope="col">Side</th>
+            <th scope="col">Strength</th>
+            <th scope="col">Confidence</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.points.map((point) => (
+            <tr>
+              <td>{point.time.toISOString().slice(0, 10)}</td>
+              <td>{point.label}</td>
+              <td>{point.place}</td>
+              <td>{point.side}</td>
+              <td>
+                {point.strength.low}–{point.strength.high} {point.strength.unit}
+              </td>
+              <td>{point.confidence}</td>
+              <td>{point.status}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </details>
+  {sourceLicense && <p class="module-frame__source">{sourceLicense}</p>}
+</figure>

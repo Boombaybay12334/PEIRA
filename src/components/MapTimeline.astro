@@ -1,0 +1,19 @@
+---
+import ModuleFrame from "./ModuleFrame.astro";
+import MapTimelineIsland from "./MapTimelineIsland";
+import { loadPointsData } from "../lib/modules/load";
+
+interface Props {
+  data: string;
+  title: string;
+  caption?: string;
+  sourceLicense?: string;
+}
+
+const { data: dataReference, title, caption, sourceLicense } = Astro.props;
+const data = loadPointsData(dataReference);
+---
+
+<ModuleFrame data={data} title={title} caption={caption} sourceLicense={sourceLicense}>
+  <MapTimelineIsland client:visible data={data} title={title} />
+</ModuleFrame>

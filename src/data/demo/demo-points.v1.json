@@ -1,0 +1,82 @@
+{
+  "kind": "points",
+  "schemaVersion": 1,
+  "demo": true,
+  "seed": 1813,
+  "figures": [],
+  "omitted": [],
+  "inputs": {
+    "note": "Synthetic demonstration data only."
+  },
+  "scenarios": [
+    {
+      "id": "historical",
+      "label": "Historical baseline",
+      "kind": "historical",
+      "assumptions": ["The baseline uses a small synthetic set of dated positions."],
+      "parameters": {},
+      "limitations": ["This data is not a reconstruction of a real event."],
+      "exploration": false,
+      "summary": "Demo data — not historical."
+    },
+    {
+      "id": "alternative",
+      "label": "Alternative exploration",
+      "kind": "alternative",
+      "assumptions": ["One movement is shifted to illustrate scenario comparison."],
+      "parameters": {
+        "shift": "synthetic"
+      },
+      "limitations": ["This alternative is illustrative and cannot predict outcomes."],
+      "exploration": true,
+      "summary": "A synthetic alternative for testing the module controls."
+    }
+  ],
+  "points": [
+    {
+      "id": "demo-a",
+      "time": "1813-10-16",
+      "label": "North position",
+      "place": "Demo north",
+      "lat": 51.38,
+      "lon": 12.39,
+      "unit": "people",
+      "side": "coalition",
+      "strength": { "low": 10, "high": 12, "unit": "people" },
+      "source": ["demo"],
+      "confidence": "illustrative",
+      "status": "candidate",
+      "scenario": "historical"
+    },
+    {
+      "id": "demo-b",
+      "time": "1813-10-17",
+      "label": "South position",
+      "place": "Demo south",
+      "lat": 51.3,
+      "lon": 12.37,
+      "unit": "people",
+      "side": "napoleon",
+      "strength": { "low": 8, "high": 11, "unit": "people" },
+      "source": ["demo"],
+      "confidence": "illustrative",
+      "status": "candidate",
+      "scenario": "historical"
+    },
+    {
+      "id": "demo-c",
+      "time": "1813-10-18",
+      "label": "Alternative movement",
+      "place": "Demo east",
+      "lat": 51.35,
+      "lon": 12.48,
+      "unit": "people",
+      "side": "coalition",
+      "strength": { "low": 7, "high": 9, "unit": "people" },
+      "source": ["demo"],
+      "confidence": "illustrative",
+      "status": "candidate",
+      "scenario": "alternative"
+    }
+  ]
+}

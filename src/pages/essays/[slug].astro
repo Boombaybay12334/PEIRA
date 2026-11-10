@@ -4,6 +4,7 @@ import { render, type CollectionEntry } from "astro:content";
 import Corrections from "../../components/Corrections.astro";
 import Figure from "../../components/Figure.astro";
 import LabPanel from "../../components/LabPanel.astro";
+import MapTimeline from "../../components/MapTimeline.astro";
 import { getPublishedEssays } from "../../content/queries";
 import EssayLayout from "../../layouts/EssayLayout.astro";
 import SiteLayout from "../../layouts/SiteLayout.astro";
@@ -45,7 +46,7 @@ const { Content } = await render(essay);
         page={`/essays/${essay.data.slug}`}
       />
     </Fragment>
-    <Content />
+    <Content components={{ MapTimeline }} />
     <Fragment slot="lab">
       <LabPanel repoUrl={essay.data.repoUrl} lab={essay.data.lab} />
     </Fragment>

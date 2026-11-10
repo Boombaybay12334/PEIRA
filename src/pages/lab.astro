@@ -1,10 +1,27 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { getPublishedEssays } from "../content/queries";
+import MapTimeline from "../components/MapTimeline.astro";
 
 const publishedEssays = await getPublishedEssays();
 ---
 
 <SiteLayout title="Lab — PEIRA" publishedEssayCount={publishedEssays.length}>
-  <h1 class="sr-only">Lab</h1>
+  <div class="lab-page site-container">
+    <header class="page-intro">
+      <p class="page-intro__eyebrow">Visual toolkit</p>
+      <h1>Lab</h1>
+      <p>Small, inspectable tools for reading evidence and uncertainty.</p>
+    </header>
+    <section aria-labelledby="map-demo-heading">
+      <h2 id="map-demo-heading">Map with timeline</h2>
+      <p>Move through dated points without losing the underlying table.</p>
+      <MapTimeline
+        data="demo/demo-points.v1.json"
+        title="Synthetic movement demo"
+        caption="Demo data — not historical. This dataset exists to exercise the module controls."
+        sourceLicense="Source: synthetic demo data created for PEIRA. No historical claim."
+      />
+    </section>
+  </div>
 </SiteLayout>
