@@ -12,6 +12,7 @@ import tailwindcss from "@tailwindcss/vite";
 // https://astro.build/config
 export default defineConfig({
   site: "https://peira.in",
+  outDir: process.env.PEIRA_BUILD_DIR ?? "dist",
   integrations: [react(), mdx(), sitemap()],
 
   vite: {

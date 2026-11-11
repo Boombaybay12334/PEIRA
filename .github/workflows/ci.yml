@@ -49,6 +49,83 @@ jobs:
       - name: Build
         run: pnpm build
 
+  qa:
+    name: QA
+    needs: ci
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 12.15.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Set Lighthouse Chrome path
+        run: echo "CHROME_PATH=$(find "$HOME/.cache/ms-playwright" -type f -name chrome | head -1)" >> "$GITHUB_ENV"
+
+      - name: Build deploy output
+        run: pnpm build
+
+      - name: Assert deploy build excludes drafts
+        run: pnpm check:build-output dist
+      - name: Test deploy build excludes drafts
+        run: pnpm test:build-output
+
+      - name: Build QA output with drafts
+        run: pnpm build:qa
+
+      - name: Assert QA build includes drafts
+        env:
+          PEIRA_EXPECT_DRAFTS: "1"
+        run: pnpm check:build-output dist-qa
+      - name: Test QA build includes drafts
+        env:
+          PEIRA_BUILD_DIR: dist-qa
+          PEIRA_EXPECT_DRAFTS: "1"
+        run: pnpm test:build-output
+
+      - name: Run end-to-end and axe checks
+        run: pnpm test:e2e
+
+      - name: Run Lighthouse CI against deploy build
+        run: pnpm exec lhci autorun --config=.lighthouserc.cjs
+
+      - name: Run Lighthouse CI against QA build
+        run: pnpm exec lhci autorun --config=.lighthouserc.qa.cjs
+
+      - name: Audit dependencies
+        run: pnpm audit --audit-level=high
+
+      - name: Upload QA reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: peira-qa-reports
+          path: |
+            playwright-report/
+            .lighthouseci/
+          if-no-files-found: ignore
+
       - name: Upload build
         uses: actions/upload-artifact@v7
         with:

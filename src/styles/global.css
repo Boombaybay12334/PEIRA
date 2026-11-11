@@ -661,15 +661,22 @@ a:hover {
   font-size: var(--text-xl);
 }
 
-.lab-panel summary a {
-  font-family: var(--font-body);
-  font-size: var(--text-base);
-}
-
 .lab-panel__content {
   display: grid;
   gap: var(--space-5);
   padding-top: var(--space-5);
+}
+
+.lab-panel__repo {
+  margin: var(--space-3) 0 0;
+}
+
+.lab-panel__repo a {
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.15em;
 }
 
 .lab-panel__content h2 {
@@ -715,6 +722,15 @@ a:hover {
 
 .essay-sources li + li {
   margin-top: var(--space-3);
+}
+
+.essay-sources a,
+.lab-page a {
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.15em;
 }
 
 .essay-source-kind {

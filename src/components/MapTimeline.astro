@@ -14,6 +14,12 @@ const { data: dataReference, title, caption, sourceLicense } = Astro.props;
 const data = loadPointsData(dataReference);
 ---
 
-<ModuleFrame data={data} title={title} caption={caption} sourceLicense={sourceLicense}>
+<ModuleFrame
+  data={data}
+  id={dataReference}
+  title={title}
+  caption={caption}
+  sourceLicense={sourceLicense}
+>
   <MapTimelineIsland client:visible data={data} title={title} />
 </ModuleFrame>

@@ -21,11 +21,8 @@ const { repoUrl, lab } = Astro.props;
 
 <section class="lab-panel" aria-labelledby="lab-heading">
   <details>
-    <summary id="lab-heading">
-      <span>Lab</span>
-      <span aria-hidden="true"> — </span>
-      <a href={repoUrl}>Open research repository</a>
-    </summary>
+    <summary id="lab-heading">Lab</summary>
+    <p class="lab-panel__repo"><a href={repoUrl}>Open research repository</a></p>
     <div class="lab-panel__content">
       <div>
         <h2>Method</h2>
