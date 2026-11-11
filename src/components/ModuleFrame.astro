@@ -51,9 +51,11 @@ const badge = data.demo || hasCandidate ? "Demo data — not historical" : undef
               <td>{point.time.toISOString().slice(0, 10)}</td>
               <td>{point.label}</td>
               <td>{point.place}</td>
-              <td>{point.side}</td>
+              <td>{point.side ?? "Not recorded"}</td>
               <td>
-                {point.strength.low}–{point.strength.high} {point.strength.unit}
+                {point.strength
+                  ? `${point.strength.low}–${point.strength.high} ${point.strength.unit}`
+                  : "Not recorded"}
               </td>
               <td>{point.confidence}</td>
               <td>{point.status}</td>

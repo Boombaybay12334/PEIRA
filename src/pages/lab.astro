@@ -6,7 +6,11 @@ import MapTimeline from "../components/MapTimeline.astro";
 const publishedEssays = await getPublishedEssays();
 ---
 
-<SiteLayout title="Lab — PEIRA" publishedEssayCount={publishedEssays.length}>
+<SiteLayout
+  title="Lab — PEIRA"
+  description="Inspectable tools for reading evidence, uncertainty, and research methods."
+  publishedEssayCount={publishedEssays.length}
+>
   <div class="lab-page site-container">
     <header class="page-intro">
       <p class="page-intro__eyebrow">Visual toolkit</p>

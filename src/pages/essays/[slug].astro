@@ -32,6 +32,8 @@ const { Content } = await render(essay);
 <SiteLayout
   title={`${essay.data.title} — PEIRA`}
   description={essay.data.description}
+  image={essay.data.heroImage.src}
+  type="article"
   publishedEssayCount={publishedEssays.length}
 >
   <EssayLayout essay={essay} readingMinutes={readingTime(essay.body ?? "")}>

@@ -2,11 +2,13 @@ import { z } from "astro/zod";
 
 const sourceId = z.string().min(1, "source: provide a source id");
 
-const strengthSchema = z.object({
-  low: z.number({ message: "strength.low: provide a number" }),
-  high: z.number({ message: "strength.high: provide a number" }),
-  unit: z.string().min(1, "strength.unit: provide a unit"),
-});
+const strengthSchema = z
+  .object({
+    low: z.number({ message: "strength.low: provide a number" }),
+    high: z.number({ message: "strength.high: provide a number" }),
+    unit: z.string().min(1, "strength.unit: provide a unit"),
+  })
+  .nullable();
 
 const pointSchema = z
   .object({
@@ -16,8 +18,8 @@ const pointSchema = z
     place: z.string().min(1, "points.place: provide a place"),
     lat: z.number().min(-90, "points.lat: must be between -90 and 90").max(90),
     lon: z.number().min(-180, "points.lon: must be between -180 and 180").max(180),
-    unit: z.string().min(1, "points.unit: provide a unit"),
-    side: z.string().min(1, "points.side: provide a side"),
+    unit: z.string().min(1, "points.unit: provide a unit").optional().nullable(),
+    side: z.string().min(1, "points.side: provide a side").optional().nullable(),
     strength: strengthSchema,
     source: z.array(sourceId).min(1, "points.source: provide at least one source id"),
     confidence: z.string().min(1, "points.confidence: provide a confidence label"),
@@ -27,7 +29,7 @@ const pointSchema = z
     scenario: z.string().min(1, "points.scenario: provide a scenario id").default("historical"),
   })
   .superRefine((point, context) => {
-    if (point.strength.high < point.strength.low) {
+    if (point.strength && point.strength.high < point.strength.low) {
       context.addIssue({
         code: "custom",
         path: ["strength", "high"],
@@ -49,20 +51,28 @@ const scenarioSchema = z.object({
   summary: z.string().optional(),
 });
 
+const omittedSchema = z.union([
+  z.string(),
+  z.object({
+    id: z.string().min(1),
+    reason: z.string().min(1),
+  }),
+]);
+
 export const pointsSchema = z
   .object({
     kind: z.literal("points"),
     schemaVersion: z.literal(1),
     demo: z.boolean().default(false),
     figures: z.array(z.record(z.string(), z.unknown())).default([]),
-    omitted: z.array(z.string()).default([]),
+    omitted: z.array(omittedSchema).default([]),
     seed: z.union([z.string(), z.number()]).optional(),
     inputs: z.record(z.string(), z.unknown()).default({}),
     points: z.array(pointSchema).min(1, "points: provide at least one point"),
     scenarios: z.array(scenarioSchema).optional(),
   })
   .superRefine((data, context) => {
-    if (data.scenarios && !data.scenarios.some((scenario) => scenario.id === "historical")) {
+    if (data.scenarios && !data.scenarios.some((scenario) => scenario.kind === "historical")) {
       context.addIssue({
         code: "custom",
         path: ["scenarios"],

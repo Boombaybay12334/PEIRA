@@ -3,14 +3,23 @@ import "../styles/global.css";
 
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
+import SEO from "../components/SEO.astro";
 
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  type?: "website" | "article";
   publishedEssayCount?: number;
 }
 
-const { title = "PEIRA", description, publishedEssayCount } = Astro.props;
+const {
+  title = "PEIRA",
+  description = "Research-led essays about history, conflict, archaeology, paleontology, and the lenses that change how we see them.",
+  image,
+  type = "website",
+  publishedEssayCount,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -21,8 +30,7 @@ const { title = "PEIRA", description, publishedEssayCount } = Astro.props;
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    {description && <meta name="description" content={description} />}
-    <title>{title}</title>
+    <SEO title={title} description={description} image={image} type={type} />
   </head>
   <body>
     <a class="skip-link" href="#main-content">

@@ -2,10 +2,15 @@
 title: MDX smoke test
 ---
 
-import "../styles/global.css";
+import SiteLayout from "../layouts/SiteLayout.astro";
 
-# MDX smoke test
+<SiteLayout
+  title="MDX smoke test — PEIRA"
+  description="A smoke test for PEIRA's MDX rendering pipeline."
+>
+  # MDX smoke test
 
 This page verifies that MDX content renders in the PEIRA foundation.
 
-<meta name="robots" content="noindex" />
+  <meta name="robots" content="noindex" />
+</SiteLayout>
