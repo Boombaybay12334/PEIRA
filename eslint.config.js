@@ -5,7 +5,14 @@ import tseslint from "typescript-eslint";
 
 export default [
   {
-    ignores: ["dist/**", ".astro/**", "node_modules/**"],
+    ignores: [
+      "dist/**",
+      "dist-qa/**",
+      "test-results/**",
+      "playwright-report/**",
+      ".astro/**",
+      "node_modules/**",
+    ],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
@@ -13,7 +20,7 @@ export default [
   {
     files: ["**/*.{js,mjs,cjs,ts,tsx,astro}"],
     languageOptions: {
-      globals: globals.browser,
+      globals: { ...globals.browser, ...globals.node },
     },
     rules: {
       "no-console": "warn",

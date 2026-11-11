@@ -4,18 +4,20 @@ import type { PointsData } from "../lib/modules/schemas";
 interface Props {
   data: PointsData;
   title: string;
+  id?: string;
   caption?: string;
   sourceLicense?: string;
 }
 
-const { data, title, caption, sourceLicense } = Astro.props;
+const { data, title, id, caption, sourceLicense } = Astro.props;
 const hasCandidate = data.points.some((point) => point.status === "candidate");
 const badge = data.demo || hasCandidate ? "Demo data — not historical" : undefined;
+const titleId = `module-title-${(id ?? title).toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
 ---
 
-<figure class="module-frame" aria-labelledby="module-title">
+<figure class="module-frame" aria-labelledby={titleId}>
   <div class="module-frame__header">
-    <h2 id="module-title">{title}</h2>
+    <h2 id={titleId}>{title}</h2>
     {badge && <span class="module-frame__badge">{badge}</span>}
   </div>
   {caption && <p class="module-frame__caption">{caption}</p>}
@@ -33,7 +35,7 @@ const badge = data.demo || hasCandidate ? "Demo data — not historical" : undef
     </p>
     <div class="module-frame__table-wrap">
       <table>
-        <caption class="sr-only">{title}data</caption>
+        <caption class="sr-only">{title} data</caption>
         <thead>
           <tr>
             <th scope="col">Date</th>
