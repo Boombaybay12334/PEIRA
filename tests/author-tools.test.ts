@@ -1,4 +1,7 @@
 import { describe, expect, it } from "vitest";
+import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 
 import { essayTemplate, isValidSlug } from "../scripts/new-essay.mjs";
 import { renderStatus } from "../scripts/essay-status.mjs";
@@ -69,10 +72,15 @@ describe("author tooling pure logic", () => {
     expect(checks).toEqual(["check:placeholders", "lint", "check", "test", "build", "essay:status"]);
   });
 
-  it("finds JSON exports in the supplied research repository", async () => {
-    await expect(exportFiles("/home/abhinav/Desktop/peira-essay-001-leipzig")).resolves.toEqual([
-      "/home/abhinav/Desktop/peira-essay-001-leipzig/exports/leipzig-points.v1.json",
-      "/home/abhinav/Desktop/peira-essay-001-leipzig/exports/leipzig-scenarios.v1.json",
-    ]);
+  it("finds JSON exports in a research repository", async () => {
+    const root = await mkdtemp(join(tmpdir(), "peira-research-"));
+    await mkdir(join(root, "exports"));
+    await writeFile(join(root, "exports", "points.json"), "{}");
+    await writeFile(join(root, "exports", "notes.txt"), "not an export");
+    try {
+      await expect(exportFiles(root)).resolves.toEqual([join(root, "exports", "points.json")]);
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
   });
 });
