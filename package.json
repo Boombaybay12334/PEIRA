@@ -22,6 +22,12 @@
     "lhci": "lhci autorun",
     "check:placeholders": "node scripts/check-placeholders.mjs",
     "check:build-output": "node scripts/check-build-output.mjs",
+    "new:essay": "node scripts/new-essay.mjs",
+    "essay:status": "node scripts/essay-status.mjs",
+    "author": "pnpm essay:status",
+    "essay:check": "node scripts/essay-check.mjs",
+    "preview:phone": "node scripts/preview-phone.mjs",
+    "sync:data": "node scripts/sync-data.mjs",
     "astro": "astro",
     "prepare": "husky"
   },
@@ -61,6 +67,7 @@
     "prettier-plugin-astro": "^1.1.2",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.1",
-    "vitest": "^5.0.5"
+    "vitest": "^5.0.5",
+    "yaml": "^2.9.1"
   }
 }

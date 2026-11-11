@@ -48,3 +48,19 @@
 - **Could not verify:** Real-phone behavior, deployed link previews, and the
   live essay page. `docs/qa-report.md` records that the live essay page must
   be re-checked after publication.
+
+## Run M — author tooling and handbook
+
+- **Status:** Implemented; preflight passed on clean, up-to-date `main`.
+- **Work:** Added the author scripts and tests, YAML parsing, placeholder guard
+  coverage for `AUTHOR-REPLACE`, the fish-friendly handbook, README link,
+  AGENTS guidance, and this log entry.
+- **Evidence:** `pnpm install --frozen-lockfile`, `pnpm lint`,
+  `pnpm lint:colors`, `pnpm check`, `pnpm test`, and `pnpm build` passed before
+  implementation; focused author tests, generator/build lifecycle, published
+  placeholder failure, and `sync:data` against the supplied Leipzig research
+  repository passed after implementation.
+- **Assumptions:** The repository has no `shipit` fish function, so the
+  handbook documents the verified `gh pr create` flow and says so explicitly.
+- **Could not verify:** Real-phone behavior, live deployment, social cards
+  after publication, and a merged PR until the owner reviews and merges.

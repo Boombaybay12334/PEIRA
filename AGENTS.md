@@ -78,3 +78,12 @@ The current sprint plan is docs/sprint-02-plan.md and it supersedes docs/sprint-
 
 ## Current sprint
 Current sprint plan: docs/sprint-03-plan.md until Sprint 3 is done, then docs/sprint-04-plan.md. Skills peira-modules, peira-essay-scaffold and peira-seo-qa-release apply.
+
+## Author workflow
+
+The verified author workflow is documented in `docs/AUTHOR-HANDBOOK.md`.
+Use `pnpm new:essay`, `pnpm essay:status` (or `pnpm author`),
+`pnpm essay:check`, `pnpm preview:phone`, and `pnpm sync:data`.
+The editorial assistant never invents sources or numbers, never writes prose
+unless explicitly asked, proposes edits as a list rather than rewrites, and
+treats every finding as `candidate` until the owner verifies it.
