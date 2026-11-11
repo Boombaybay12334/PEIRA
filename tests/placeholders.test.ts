@@ -8,6 +8,11 @@ describe("published essay placeholder guard", () => {
       true,
     );
     expect(hasPublishedPlaceholder("---\ndraft: false\n---\nFILL_ME")).toBe(true);
+    expect(
+      hasPublishedPlaceholder(
+        '---\ndraft: false\nrepoUrl: "https://github.com/Boombaybay12334/AUTHOR-REPLACE"\n---',
+      ),
+    ).toBe(true);
   });
 
   it("allows markers in drafts", () => {

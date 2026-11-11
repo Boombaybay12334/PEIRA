@@ -18,3 +18,5 @@ pnpm build
 ```
 
 Project decisions and sprint requirements are documented in [`docs/`](docs/).
+
+Author workflow instructions are in [`docs/AUTHOR-HANDBOOK.md`](docs/AUTHOR-HANDBOOK.md).

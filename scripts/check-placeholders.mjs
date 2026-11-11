@@ -22,7 +22,10 @@ async function essayFiles(directory) {
 
 export function hasPublishedPlaceholder(content) {
   const frontmatter = content.match(/^---\n([\s\S]*?)\n---/u)?.[1] ?? "";
-  return /^draft:\s*false\s*$/mu.test(frontmatter) && markerPattern.test(content);
+  return (
+    /^draft:\s*false\s*$/mu.test(frontmatter) &&
+    (markerPattern.test(content) || /AUTHOR-REPLACE/u.test(frontmatter))
+  );
 }
 
 export async function findPublishedPlaceholders(root = "src/content/essays") {
