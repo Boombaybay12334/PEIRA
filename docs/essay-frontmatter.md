@@ -22,6 +22,10 @@ pnpm test
 pnpm build
 ```
 
+Before publication, run `pnpm check:placeholders`. It fails if an essay with
+`draft: false` contains `AUTHOR:` or `FILL_ME`; draft essays may contain those
+markers while the owner is writing them.
+
 To demonstrate a build failure, copy a broken fixture's JSON frontmatter into
 an MDX file under `src/content/essays/`, run `pnpm build`, and read the named
 field in the error. Remove the temporary file and run `pnpm build` again.

@@ -24,7 +24,9 @@ function MapTimelineView({ data }: Props) {
   const markersRef = useRef<Marker[]>([]);
   const [mapFailed, setMapFailed] = useState(false);
   const [dateIndex, setDateIndex] = useState(0);
-  const [scenarioId, setScenarioId] = useState("historical");
+  const [scenarioId, setScenarioId] = useState(
+    () => data.scenarios?.find((scenario) => scenario.kind === "historical")?.id ?? "historical",
+  );
   const [playing, setPlaying] = useState(false);
   const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
   const dates = useMemo(() => sortedDates(data.points), [data.points]);
@@ -78,7 +80,8 @@ function MapTimelineView({ data }: Props) {
       const markerElement = document.createElement("button");
       markerElement.type = "button";
       const isLatest = point.time.toISOString().slice(0, 10) === latestDate;
-      markerElement.className = `map-marker map-marker--${point.side.toLowerCase().replace(/[^a-z0-9]+/g, "-")}${isLatest ? " map-marker--latest" : ""}`;
+      const side = point.side ?? "unknown";
+      markerElement.className = `map-marker map-marker--${side.toLowerCase().replace(/[^a-z0-9]+/g, "-")}${isLatest ? " map-marker--latest" : ""}`;
       markerElement.setAttribute("aria-label", `${point.label}, ${point.place}`);
       markerElement.addEventListener("click", () => setSelectedPoint(point));
       markerElement.addEventListener("keydown", (event) => {
@@ -249,8 +252,9 @@ function MapTimelineView({ data }: Props) {
             <div>
               <dt>Strength</dt>
               <dd>
-                {selectedPoint.strength.low}–{selectedPoint.strength.high}{" "}
-                {selectedPoint.strength.unit}
+                {selectedPoint.strength
+                  ? `${selectedPoint.strength.low}–${selectedPoint.strength.high} ${selectedPoint.strength.unit}`
+                  : "Not recorded"}
               </dd>
             </div>
             <div>

@@ -1,5 +1,5 @@
 ---
-import "../styles/global.css";
+import SiteLayout from "../layouts/SiteLayout.astro";
 
 const colorGroups = [
   {
@@ -33,45 +33,19 @@ const spacingTokens = [
 ];
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="robots" content="noindex" />
-    <title>PEIRA design tokens</title>
-  </head>
-  <body>
-    <main>
-      <h1>Design tokens</h1>
-      <p>Placeholder values for PEIRA's archival, analytical, cinematic direction.</p>
+<SiteLayout title="Design tokens — PEIRA" description="Reference page for PEIRA's design tokens.">
+  <main>
+    <h1>Design tokens</h1>
+    <p>Placeholder values for PEIRA's archival, analytical, cinematic direction.</p>
 
-      {colorGroups.map((group) => (
-        <section aria-labelledby={`${group.title}-heading`}>
-          <h2 id={`${group.title}-heading`}>{group.title}</h2>
-          <div class="swatches">
-            {group.tokens.map((token) => (
-              <article class="swatch">
-                <div
-                  class="swatch-color"
-                  style={`background-color: var(--${token})`}
-                  aria-hidden="true"
-                />
-                <code>--{token}</code>
-                <span data-value={token}>Loading value…</span>
-                <span data-contrast={token}>Contrast vs --bg-0: calculating…</span>
-              </article>
-            ))}
-          </div>
-        </section>
-      ))}
-
-      <section aria-labelledby="data-heading">
-        <h2 id="data-heading">Data colors</h2>
+    {colorGroups.map((group) => (
+      <section aria-labelledby={`${group.title}-heading`}>
+        <h2 id={`${group.title}-heading`}>{group.title}</h2>
         <div class="swatches">
-          {dataTokens.map((token, index) => (
+          {group.tokens.map((token) => (
             <article class="swatch">
               <div
-                class={`swatch-color shape-${(index % 3) + 1}`}
+                class="swatch-color"
                 style={`background-color: var(--${token})`}
                 aria-hidden="true"
               />
@@ -82,32 +56,50 @@ const spacingTokens = [
           ))}
         </div>
       </section>
+    ))}
 
-      <section aria-labelledby="type-heading">
-        <h2 id="type-heading">Type scale</h2>
-        <div class="type-samples">
-          {typeSamples.map(([label, font, sample]) => (
-            <p style={`font-family: ${font}`}>
-              {label}: {sample}
-            </p>
-          ))}
-        </div>
-      </section>
+    <section aria-labelledby="data-heading">
+      <h2 id="data-heading">Data colors</h2>
+      <div class="swatches">
+        {dataTokens.map((token, index) => (
+          <article class="swatch">
+            <div
+              class={`swatch-color shape-${(index % 3) + 1}`}
+              style={`background-color: var(--${token})`}
+              aria-hidden="true"
+            />
+            <code>--{token}</code>
+            <span data-value={token}>Loading value…</span>
+            <span data-contrast={token}>Contrast vs --bg-0: calculating…</span>
+          </article>
+        ))}
+      </div>
+    </section>
 
-      <section aria-labelledby="spacing-heading">
-        <h2 id="spacing-heading">Spacing</h2>
-        <div class="spacing">
-          {spacingTokens.map((token) => (
-            <div class="spacing-item">
-              <code>--{token}</code>
-              <span style={`width: var(--${token})`} />
-            </div>
-          ))}
-        </div>
-      </section>
-    </main>
-  </body>
-</html>
+    <section aria-labelledby="type-heading">
+      <h2 id="type-heading">Type scale</h2>
+      <div class="type-samples">
+        {typeSamples.map(([label, font, sample]) => (
+          <p style={`font-family: ${font}`}>
+            {label}: {sample}
+          </p>
+        ))}
+      </div>
+    </section>
+
+    <section aria-labelledby="spacing-heading">
+      <h2 id="spacing-heading">Spacing</h2>
+      <div class="spacing">
+        {spacingTokens.map((token) => (
+          <div class="spacing-item">
+            <code>--{token}</code>
+            <span style={`width: var(--${token})`} />
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+</SiteLayout>
 
 <style>
   main {

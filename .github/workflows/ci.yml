@@ -34,6 +34,9 @@ jobs:
       - name: Lint
         run: pnpm lint
 
+      - name: Check published essay placeholders
+        run: pnpm check:placeholders
+
       - name: Check hardcoded colors
         run: pnpm lint:colors
 

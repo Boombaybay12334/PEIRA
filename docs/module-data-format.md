@@ -44,3 +44,7 @@ defaults to `"historical"` when omitted. Scenario records are optional and use
 
 Demo files must set `demo: true` and be visibly labelled as synthetic. They are
 not historical evidence.
+
+`omitted` may contain either an identifier string or an object with `id` and
+`reason` fields when an export needs to explain why a candidate point was left
+out.
