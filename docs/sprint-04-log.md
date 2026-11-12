@@ -64,3 +64,33 @@
   handbook documents the verified `gh pr create` flow and says so explicitly.
 - **Could not verify:** Real-phone behavior, live deployment, social cards
   after publication, and a merged PR until the owner reviews and merges.
+
+
+## Run N — foundation freeze and project state
+
+- **Status:** Complete across 3 pull requests (PR #40 cleanup, PR #41 project state, PR #42 version and release prep).
+- **PRs:**
+  - PR #40: `chore: freeze cleanup — docs index, remove dead _sample dir (Run N)` (Merged)
+  - PR #41: `docs: add docs/PROJECT-STATE.md foundation freeze specification (Run N)` (Merged)
+  - PR #42: `chore: release prep — v0.9.0, changelog, and README updates (Run N)` (In progress)
+- **Work:**
+  - Deleted dead template directory `src/content/essays/_sample/` and confirmed zero imports/references across code and tests.
+  - Pruned 34 remote branches from tracking cache that had been merged to main and deleted on GitHub.
+  - Generated `docs/README.md` indexing all project documents and explicitly marking sprint records and Sprint 0 as historical.
+  - Authored comprehensive 20-section `docs/PROJECT-STATE.md` specification verifying every statement against the code with `VERIFIED`, `OWNER-CONFIRM`, or `UNVERIFIED` evidence tags.
+  - Section 11 built entirely from local `docs/research-repo-STATE.md` snapshot without reading any paths outside the workspace boundary.
+  - Documented complete `CHANGELOG.md` adhering to Keep a Changelog format with `0.9.0` entry.
+  - Bumped `package.json` version to `0.9.0`.
+  - Updated `README.md` to reference `docs/PROJECT-STATE.md` and `docs/AUTHOR-HANDBOOK.md`.
+- **Evidence:**
+  - Preflight checks passed on baseline SHA `26ae6a78a0e2a18da559e0f91dfa397b3dd8fae7`.
+  - Post-cleanup verification: `pnpm check` (60 files, 0 errors), `pnpm test` (9 files, 40 tests passed), `pnpm build` (10 static routes generated), `pnpm lint:colors` (clean).
+  - Dependency audit: reported 11 minor/patch outdated packages, 1 moderate vulnerability (`minimatch` in ESLint dev tree), zero high/critical issues.
+  - Secrets scan: zero secrets in working tree or git history.
+  - Placeholders check: 28 markers cataloged across historical retros and draft essay; non-draft essays have zero markers.
+- **Assumptions:**
+  - Freeze rule strictly followed: no behavior changes, no dependency changes, no new features.
+  - Essay 001 remains `draft: true` with `AUTHOR:` markers awaiting author prose.
+- **Could not verify:**
+  - External Cloudflare Pages dashboard configurations and registrar DNS records (tagged `OWNER-CONFIRM`).
+  - Mobile rendering on physical devices.
