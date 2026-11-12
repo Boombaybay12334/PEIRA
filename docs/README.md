@@ -53,3 +53,5 @@ their purpose and status.
 | [sprint-04-plan.md](sprint-04-plan.md) | Current sprint plan (Sprint 4 / V1) |
 | [sprint-04-log.md](sprint-04-log.md) | Current sprint log |
 | [sprint-04-retro.md](sprint-04-retro.md) | To be filled by the owner at sprint end |
+
+- [Developer guide](DEVELOPER-GUIDE.md): how PEIRA works and how to develop it further
